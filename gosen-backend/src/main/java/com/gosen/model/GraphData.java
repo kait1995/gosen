@@ -17,7 +17,6 @@ import jakarta.persistence.OneToOne;
 @Setter
 @Entity
 @Builder
-//@NoArgsConstructor
 public class GraphData{
 	@Id
 	@GeneratedValue
