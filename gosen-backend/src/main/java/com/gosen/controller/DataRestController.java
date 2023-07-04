@@ -1,5 +1,13 @@
 package com.gosen.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gosen.model.DeviceSetting;
+import com.gosen.repository.DeviceSettingRepository;
+
+@RestController
 public class DataRestController {
 	/*
 	 * [API]
@@ -13,5 +21,16 @@ public class DataRestController {
 	 * /v1/devices/:id/resume
 	*/
 	
+	private final DeviceSettingRepository deviceSettingRepo;
+	
+	DataRestController(DeviceSettingRepository deviceSettingRepo){
+		this.deviceSettingRepo = deviceSettingRepo;
+	}
+	
+	@PostMapping("/v1/system/add")
+	public String addItem(@RequestBody DeviceSetting deviceSetting) {
+		deviceSettingRepo.save(deviceSetting);
+		return "Test OK";
+	}
 	
 }
