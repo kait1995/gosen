@@ -27,7 +27,7 @@ public class DataRestController {
 		this.deviceSettingRepo = deviceSettingRepo;
 	}
 	
-	@PostMapping("/v1/system/add")
+	@PostMapping(value="/v1/system/add", consumes="application/json;charset=UTF-8")
 	public String addItem(@RequestBody DeviceSetting deviceSetting) {
 		deviceSettingRepo.save(deviceSetting);
 		return "Test OK";
