@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class TestConfig implements ApplicationRunner{
 	private final DeviceSettingRepository deviceSettingRepo;
 	private final GraphDataRepository graphDataRepo;
-	private final UserAccountRepository userAccountRepo;
+	//private final UserAccountRepository userAccountRepo;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -43,11 +43,13 @@ public class TestConfig implements ApplicationRunner{
 				.status9(true)
 				.build();
 		
+		/*
 		UserAccount userAccount = UserAccount.builder()
 				.userId(Integer.toUnsignedLong(0))
 				.password("password")
 				.profileImgLink("test")
 				.build();
+		*/
 		
 		GraphData graphData = GraphData.builder()
 				.batteryStatus("100%")
@@ -65,12 +67,12 @@ public class TestConfig implements ApplicationRunner{
 				.option8("test")
 				.option9("test")
 				.date("test")
-				.deviceSetting(deviceSetting)
-				.userAccount(userAccount)
+				//.deviceSetting(deviceSetting)
+				//.userAccount(userAccount)
 				.build();
 		
 		deviceSettingRepo.save(deviceSetting);
-		userAccountRepo.save(userAccount);
+		//userAccountRepo.save(userAccount);
 		graphDataRepo.save(graphData);
 	}
 

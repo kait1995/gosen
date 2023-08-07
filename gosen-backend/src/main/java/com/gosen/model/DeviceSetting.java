@@ -16,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class DeviceSetting {
 	@Id
@@ -41,7 +43,9 @@ public class DeviceSetting {
 	private boolean status8;
 	private boolean status9;
 	
+	/*
 	@OneToOne(mappedBy="deviceSetting", cascade=CascadeType.ALL)
 	@JsonBackReference
 	private GraphData graphData;
+	*/
 }

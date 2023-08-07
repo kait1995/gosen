@@ -10,19 +10,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserAccount {
+	//TODO: Add user account entity.
+
 	@Id
 	@GeneratedValue
 	private Long accountId;
 	
+	/*
 	@Column(unique=true)
 	private Long userId;
 	
@@ -32,4 +39,5 @@ public class UserAccount {
 	@OneToMany(mappedBy="userAccount", cascade=CascadeType.ALL)
 	@JsonBackReference
 	private List<GraphData> graphData;
+	*/
 }

@@ -1,7 +1,9 @@
 package com.gosen.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -17,6 +19,8 @@ import jakarta.persistence.OneToOne;
 @Setter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GraphData{
 	@Id
 	@GeneratedValue
@@ -38,13 +42,17 @@ public class GraphData{
 	private String option9;
 	private String date;
 	
+	/*
 	@OneToOne
 	@JoinColumn(name="settingId")
 	@JsonManagedReference
 	private DeviceSetting deviceSetting;
+	*/
 	
+	/*
 	@ManyToOne
 	@JoinColumn(name="accountId")
 	@JsonManagedReference
 	private UserAccount userAccount;
+	*/
 }
