@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +19,8 @@ public class DataRestController {
 	/*
 	 * [API]
 	 * /v1/system/add
-	 * /v1/system/delete/:id
-	 * /v1/system/update/:id
+	 * /v1/system/delete/:title
+	 * /v1/system/update/:title
 	 * /v1/system/search/:title
 	 * /v1/system/info/:id/get
 	 * /v1/device/:id/add
@@ -41,6 +42,17 @@ public class DataRestController {
 		} else {
 			deviceSettingRepo.save(deviceSetting);
 			return ResponseEntity.ok("Response ok.");
+		}
+	}
+	
+	@PostMapping(value="/v1/system/delete/{title}")
+	public ResponseEntity<String> removeItem(@PathVariable("title") String title){
+		var deviceSetting = deviceSettingRepo.findByTitle(title);
+		if(deviceSetting != null) {
+			deviceSettingRepo.delete(deviceSetting);
+			return ResponseEntity.ok("Response ok.");
+		} else {
+			return ResponseEntity.badRequest().body("The title was not found.");
 		}
 	}
 	

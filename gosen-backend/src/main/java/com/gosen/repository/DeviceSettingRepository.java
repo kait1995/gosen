@@ -8,4 +8,5 @@ import com.gosen.model.DeviceSetting;
 
 public interface DeviceSettingRepository extends JpaRepository<DeviceSetting, Long>{
 	boolean existsByTitle(String title);
+	DeviceSetting findByTitle(String title);
 }
