@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,20 +37,30 @@ public class DataRestController {
 	}
 	
 	@PostMapping(value="/v1/system/add", consumes="application/json;charset=UTF-8")
-	public ResponseEntity<String> addItem(@RequestBody DeviceSetting deviceSetting) {
+	public ResponseEntity<Long> addItem(@RequestBody DeviceSetting deviceSetting) {
+		DeviceSetting res = deviceSettingRepo.save(deviceSetting);
+		return ResponseEntity.ok(res.getSettingId());
+		/*
 		if(deviceSettingRepo.existsByTitle(deviceSetting.getTitle())) {
-			return new ResponseEntity<>("The title is already in use.", HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body("The title is already in use.");
 		} else {
-			deviceSettingRepo.save(deviceSetting);
-			return ResponseEntity.ok("Response ok.");
+			DeviceSetting res = deviceSettingRepo.save(deviceSetting);
+			return ResponseEntity.ok(res.getSettingId().toString());
 		}
+		*/
 	}
 	
-	@PostMapping(value="/v1/system/delete/{title}")
-	public ResponseEntity<String> removeItem(@PathVariable("title") String title){
-		var deviceSetting = deviceSettingRepo.findByTitle(title);
+	@GetMapping(value="/v1/system/get", produces="application/json;charset=UTF-8")
+	public ResponseEntity<List<DeviceSetting>> getItems(){
+		List<DeviceSetting> res = deviceSettingRepo.findAll();
+		return ResponseEntity.ok(res);
+	}
+	
+	@PostMapping(value="/v1/system/delete/{id}")
+	public ResponseEntity<String> removeItem(@PathVariable("id") Long id){
+		var deviceSetting = deviceSettingRepo.findById(id);
 		if(deviceSetting != null) {
-			deviceSettingRepo.delete(deviceSetting);
+			deviceSettingRepo.deleteById(id);
 			return ResponseEntity.ok("Response ok.");
 		} else {
 			return ResponseEntity.badRequest().body("The title was not found.");
