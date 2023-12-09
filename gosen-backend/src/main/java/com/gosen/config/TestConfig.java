@@ -22,9 +22,10 @@ public class TestConfig implements ApplicationRunner{
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		/*
 		DeviceSetting deviceSetting = DeviceSetting.builder()
 				.title("test")
-				.deviceNumber(Integer.toUnsignedLong(0))
+				.deviceNumber(0)
 				.isActivated(true)
 				.useCamera(true)
 				.useTimer(true)
@@ -43,18 +44,38 @@ public class TestConfig implements ApplicationRunner{
 				.status9(true)
 				.build();
 		
-		/*
 		UserAccount userAccount = UserAccount.builder()
 				.userId(Integer.toUnsignedLong(0))
 				.password("password")
 				.profileImgLink("test")
 				.build();
-		*/
 		
-		GraphData graphData = GraphData.builder()
-				.batteryStatus("100%")
-				.signalStrength("100%")
-				.humidity("100%")
+		GraphData graphData1 = GraphData.builder()
+				.deviceNumber(1011)
+				.batteryStatus("0.1")
+				.signalStrength("0.1")
+				.humidity("0.1")
+				.temperature("10")
+				.option0("test")
+				.option1("test")
+				.option2("test")
+				.option3("test")
+				.option4("test")
+				.option5("test")
+				.option6("test")
+				.option7("test")
+				.option8("test")
+				.option9("test")
+				.date("test")
+				//.deviceSetting(deviceSetting)
+				//.userAccount(userAccount)
+				.build();
+		
+		GraphData graphData2 = GraphData.builder()
+				.deviceNumber(1012)
+				.batteryStatus("0.1")
+				.signalStrength("0.1")
+				.humidity("0.1")
 				.temperature("10")
 				.option0("test")
 				.option1("test")
@@ -73,7 +94,9 @@ public class TestConfig implements ApplicationRunner{
 		
 		deviceSettingRepo.save(deviceSetting);
 		//userAccountRepo.save(userAccount);
-		graphDataRepo.save(graphData);
+		graphDataRepo.save(graphData1);
+		graphDataRepo.save(graphData2);
+		*/
 	}
 
 }

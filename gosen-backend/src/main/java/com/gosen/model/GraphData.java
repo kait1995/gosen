@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,9 +24,10 @@ import jakarta.persistence.OneToOne;
 @AllArgsConstructor
 public class GraphData{
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long dataId;
 	
+	private int deviceNumber;
 	private String batteryStatus;
 	private String signalStrength;
 	private String humidity;
