@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -21,11 +22,11 @@ import lombok.Setter;
 @Entity
 public class DeviceSetting {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long settingId;
 	
 	private String title;
-	private Long deviceNumber;
+	private int deviceNumber;
 	private boolean isActivated;
 	private boolean useCamera;
 	private boolean useTimer;
