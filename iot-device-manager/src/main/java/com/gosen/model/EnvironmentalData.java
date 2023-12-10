@@ -6,15 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Getter
 @Setter
@@ -22,7 +17,7 @@ import jakarta.persistence.OneToOne;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GraphData{
+public class EnvironmentalData{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long dataId;
@@ -43,18 +38,4 @@ public class GraphData{
 	private String option8;
 	private String option9;
 	private String date;
-	
-	/*
-	@OneToOne
-	@JoinColumn(name="settingId")
-	@JsonManagedReference
-	private DeviceSetting deviceSetting;
-	*/
-	
-	/*
-	@ManyToOne
-	@JoinColumn(name="accountId")
-	@JsonManagedReference
-	private UserAccount userAccount;
-	*/
 }
