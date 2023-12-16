@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.gosen.model.DeviceSetting;
+import com.gosen.model.DeviceSettingEntity;
 
-public interface DeviceSettingRepository extends JpaRepository<DeviceSetting, Long>{
+public interface DeviceSettingRepository extends JpaRepository<DeviceSettingEntity, Long>{
 	boolean existsByTitle(String title);
-	DeviceSetting findByTitle(String title);
+	DeviceSettingEntity findByTitle(String title);
 }

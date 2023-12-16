@@ -23,7 +23,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAccount {
+public class UserAccountEntity {
 	//TODO: Add user account entity.
 
 	@Id

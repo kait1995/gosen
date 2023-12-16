@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.gosen.model.DeviceSetting;
+import com.gosen.model.DeviceSettingEntity;
 import com.gosen.repository.DeviceSettingRepository;
 
 @RestController
@@ -23,15 +23,15 @@ public class DataRestController {
 	}
 	
 	@PostMapping(value="/v1/item", consumes="application/json;charset=UTF-8")
-	public ResponseEntity<Long> addItem(@RequestBody DeviceSetting deviceSetting) {
-		DeviceSetting res = deviceSettingRepo.save(deviceSetting);
+	public ResponseEntity<Long> addItem(@RequestBody DeviceSettingEntity deviceSetting) {
+		DeviceSettingEntity res = deviceSettingRepo.save(deviceSetting);
 		return ResponseEntity.ok(res.getSettingId());
 	}
 	
 	@PutMapping(value="/v1/item/{id}")
 	public ResponseEntity<String> updateItem(
 			@PathVariable("id") Long id,
-			@RequestBody DeviceSetting deviceSetting
+			@RequestBody DeviceSettingEntity deviceSetting
 	){
 		var res = deviceSettingRepo.findById(id);
 		if(res.isPresent()) {
@@ -56,8 +56,8 @@ public class DataRestController {
 	}
 	
 	@GetMapping(value="/v1/item", produces="application/json;charset=UTF-8")
-	public ResponseEntity<List<DeviceSetting>> getItems(){
-		List<DeviceSetting> res = deviceSettingRepo.findAll();
+	public ResponseEntity<List<DeviceSettingEntity>> getItems(){
+		List<DeviceSettingEntity> res = deviceSettingRepo.findAll();
 		return ResponseEntity.ok(res);
 	}
 	

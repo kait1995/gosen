@@ -1,5 +1,5 @@
 
-CREATE TABLE device_setting(
+CREATE TABLE device_setting_entity(
 	setting_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(255),
 	device_number INT,
@@ -20,7 +20,7 @@ CREATE TABLE device_setting(
 	status8 BOOLEAN,
 	status9 BOOLEAN
 );
-CREATE TABLE user_account(
+CREATE TABLE user_account_entity(
 	account_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
 );
 

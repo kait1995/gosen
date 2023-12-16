@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gosen.model.EnvironmentalData;
+import com.gosen.model.EnvironmentalDataEntity;
 import com.gosen.repository.EnvironmentalDataRepository;
 
 @RestController
@@ -19,8 +19,8 @@ public class DataRestController {
 	}
 	
 	@GetMapping(value="/v1/device", produces="application/json;charset=UTF-8")
-	public ResponseEntity<List<EnvironmentalData>> getGraphData(){
-		List<EnvironmentalData> res = environmentalDataRepository.findAll();
+	public ResponseEntity<List<EnvironmentalDataEntity>> getGraphData(){
+		List<EnvironmentalDataEntity> res = environmentalDataRepository.findAll();
 		return ResponseEntity.ok(res);
 	}
 }

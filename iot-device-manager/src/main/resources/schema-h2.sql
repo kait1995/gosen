@@ -1,5 +1,5 @@
 
-CREATE TABLE graph_data(
+CREATE TABLE graph_data_entity(
 	data_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,	
 	device_number INT,
 	battery_status VARCHAR(255),

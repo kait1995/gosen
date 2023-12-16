@@ -17,7 +17,7 @@ import jakarta.persistence.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnvironmentalData{
+public class EnvironmentalDataEntity{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long dataId;
