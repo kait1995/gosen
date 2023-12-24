@@ -1,12 +1,12 @@
-package com.model;
+package com.gosen.data;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EnvironmentalData{
 	private Long dataId;
 	
