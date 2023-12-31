@@ -10,26 +10,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.gosen.config.AppConfig;
 import com.gosen.data.DataSet;
 import com.gosen.data.DeviceNumberList;
 import com.gosen.data.EnvironmentalData;
 
 @RestController
 public class DataRestController {
+	private final AppConfig appConfig;
+	
+	public DataRestController(AppConfig appConfig) {
+		this.appConfig = appConfig;		
+	}
 	
 	RestTemplate restTemplate = new RestTemplate();
 	
 	@GetMapping(value="/v1/device/list", produces="application/json;charset=UTF-8")
 	public ResponseEntity<DeviceNumberList> getDeviceNumberList(){
-		ResponseEntity<List<EnvironmentalData>> response = restTemplate.exchange("http://localhost:8081/v1/device",HttpMethod.GET,null,new ParameterizedTypeReference<List<EnvironmentalData>>() {});
+		ResponseEntity<List<EnvironmentalData>> response = restTemplate.exchange(String.format("%s/v1/device", appConfig.getHost()),HttpMethod.GET,null,new ParameterizedTypeReference<List<EnvironmentalData>>() {});
 		var deviceNumberList = response.getBody().stream().map(EnvironmentalData::getDeviceNumber).distinct().toList();
 		var responseEntity = ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(new DeviceNumberList(deviceNumberList));
 		return responseEntity;
 	}
 	
 	@GetMapping(value="/v1/device/dataset", produces="application/json;charset=UTF-8")
-	public ResponseEntity<DataSet> getDeviceDataSet(){
-        ResponseEntity<List<EnvironmentalData>> response = restTemplate.exchange("http://localhost:8081/v1/device",HttpMethod.GET,null,new ParameterizedTypeReference<List<EnvironmentalData>>() {});
+	public ResponseEntity<DataSet> getDeviceDataSet(){	
+        ResponseEntity<List<EnvironmentalData>> response = restTemplate.exchange(String.format("%s/v1/device", appConfig.getHost()),HttpMethod.GET,null,new ParameterizedTypeReference<List<EnvironmentalData>>() {});
         var body = response.getBody();
         var dateList = body.stream().map(EnvironmentalData::getDate).toList();
         var measuredValue = body.stream().map((environmentalData) -> {
