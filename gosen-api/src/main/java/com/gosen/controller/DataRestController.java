@@ -10,16 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gosen.config.AppConfig;
 import com.gosen.model.DeviceSettingEntity;
 import com.gosen.repository.DeviceSettingRepository;
 
 @RestController
 public class DataRestController {
 	
+	private final AppConfig appConfig;	
 	private final DeviceSettingRepository deviceSettingRepo;
 	
-	DataRestController(DeviceSettingRepository deviceSettingRepo){
+	DataRestController(DeviceSettingRepository deviceSettingRepo, AppConfig appConfig){
 		this.deviceSettingRepo = deviceSettingRepo;
+		this.appConfig = appConfig;
 	}
 	
 	@PostMapping(value="/v1/item", consumes="application/json;charset=UTF-8")

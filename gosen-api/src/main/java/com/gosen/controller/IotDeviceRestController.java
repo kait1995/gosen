@@ -2,8 +2,6 @@ package com.gosen.controller;
 
 import java.util.List;
 
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,32 +11,34 @@ import org.springframework.web.client.RestTemplate;
 import com.gosen.config.AppConfig;
 import com.gosen.data.DataSet;
 import com.gosen.data.DeviceNumberList;
-import com.gosen.data.EnvironmentalData;
+import com.gosen.model.EnvironmentalDataEntity;
+import com.gosen.repository.EnvironmentalDataRepository;
 
 @RestController
-public class DataRestController {
+public class IotDeviceRestController {
 	private final AppConfig appConfig;
+	private final EnvironmentalDataRepository environmentalDataRepository;
 	
-	public DataRestController(AppConfig appConfig) {
-		this.appConfig = appConfig;		
+	public IotDeviceRestController(AppConfig appConfig, EnvironmentalDataRepository environmentalDataRepository) {
+		this.appConfig = appConfig;
+		this.environmentalDataRepository = environmentalDataRepository;
 	}
 	
 	RestTemplate restTemplate = new RestTemplate();
 	
 	@GetMapping(value="/v1/device/list", produces="application/json;charset=UTF-8")
 	public ResponseEntity<DeviceNumberList> getDeviceNumberList(){
-		ResponseEntity<List<EnvironmentalData>> response = restTemplate.exchange(String.format("%s/v1/device", appConfig.getHost()),HttpMethod.GET,null,new ParameterizedTypeReference<List<EnvironmentalData>>() {});
-		var deviceNumberList = response.getBody().stream().map(EnvironmentalData::getDeviceNumber).distinct().toList();
+		List<EnvironmentalDataEntity> res = environmentalDataRepository.findAll();
+		var deviceNumberList = res.stream().map(EnvironmentalDataEntity::getDeviceNumber).distinct().toList();
 		var responseEntity = ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(new DeviceNumberList(deviceNumberList));
 		return responseEntity;
 	}
 	
 	@GetMapping(value="/v1/device/dataset", produces="application/json;charset=UTF-8")
 	public ResponseEntity<DataSet> getDeviceDataSet(){	
-        ResponseEntity<List<EnvironmentalData>> response = restTemplate.exchange(String.format("%s/v1/device", appConfig.getHost()),HttpMethod.GET,null,new ParameterizedTypeReference<List<EnvironmentalData>>() {});
-        var body = response.getBody();
-        var dateList = body.stream().map(EnvironmentalData::getDate).toList();
-        var measuredValue = body.stream().map((environmentalData) -> {
+        var res = environmentalDataRepository.findAll();
+        var dateList = res.stream().map(EnvironmentalDataEntity::getDate).toList();
+        var measuredValue = res.stream().map((environmentalData) -> {
 			return DataSet.MeasuredValue.builder()
 					.humidity(environmentalData.getHumidity())
 					.temperature(environmentalData.getTemperature())
@@ -56,4 +56,10 @@ public class DataRestController {
         var dataSet = DataSet.builder().dateList(dateList).measuredValue(measuredValue).build();
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(dataSet);
     }
+	
+	@GetMapping(value="/v1/device", produces="application/json;charset=UTF-8")
+	public ResponseEntity<List<EnvironmentalDataEntity>> getGraphData(){
+		List<EnvironmentalDataEntity> res = environmentalDataRepository.findAll();
+		return ResponseEntity.ok(res);
+	}
 }
