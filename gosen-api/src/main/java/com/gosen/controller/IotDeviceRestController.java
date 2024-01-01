@@ -38,7 +38,7 @@ public class IotDeviceRestController {
 	public ResponseEntity<DataSet> getDeviceDataSet(){	
         var res = environmentalDataRepository.findAll();
         var dateList = res.stream().map(EnvironmentalDataEntity::getDate).toList();
-        var measuredValue = res.stream().map((environmentalData) -> {
+        var measuredValues = res.stream().map((environmentalData) -> {
 			return DataSet.MeasuredValue.builder()
 					.humidity(environmentalData.getHumidity())
 					.temperature(environmentalData.getTemperature())
@@ -53,7 +53,7 @@ public class IotDeviceRestController {
 					.option8(environmentalData.getOption8())
 					.option9(environmentalData.getOption9()).build();
         }).toList();
-        var dataSet = DataSet.builder().dateList(dateList).measuredValue(measuredValue).build();
+        var dataSet = DataSet.builder().dateList(dateList).measuredValues(measuredValues).build();
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(dataSet);
     }
 	
