@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class DeviceSettingEntity {
+public class ItemSettingEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long settingId;

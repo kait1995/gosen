@@ -1,5 +1,5 @@
 
-CREATE TABLE device_setting_entity(
+CREATE TABLE item_setting_entity(
 	setting_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(255),
 	device_number INT,

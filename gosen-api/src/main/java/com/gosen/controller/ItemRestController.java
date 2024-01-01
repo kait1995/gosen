@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gosen.config.AppConfig;
-import com.gosen.model.DeviceSettingEntity;
+import com.gosen.model.ItemSettingEntity;
 import com.gosen.repository.ItemSettingRepository;
 
 @RestController
@@ -27,15 +27,15 @@ public class ItemRestController {
 	}
 	
 	@PostMapping(value="/v1/item", consumes="application/json;charset=UTF-8")
-	public ResponseEntity<Long> addItem(@RequestBody DeviceSettingEntity deviceSetting) {
-		DeviceSettingEntity res = itemSettingRepo.save(deviceSetting);
+	public ResponseEntity<Long> addItem(@RequestBody ItemSettingEntity deviceSetting) {
+		ItemSettingEntity res = itemSettingRepo.save(deviceSetting);
 		return ResponseEntity.ok(res.getSettingId());
 	}
 	
 	@PutMapping(value="/v1/item/{id}")
 	public ResponseEntity<String> updateItem(
 			@PathVariable("id") Long id,
-			@RequestBody DeviceSettingEntity deviceSetting
+			@RequestBody ItemSettingEntity deviceSetting
 	){
 		var res = itemSettingRepo.findById(id);
 		if(res.isPresent()) {
@@ -60,8 +60,8 @@ public class ItemRestController {
 	}
 	
 	@GetMapping(value="/v1/item", produces="application/json;charset=UTF-8")
-	public ResponseEntity<List<DeviceSettingEntity>> getItems(){
-		List<DeviceSettingEntity> res = itemSettingRepo.findAll();
+	public ResponseEntity<List<ItemSettingEntity>> getItems(){
+		List<ItemSettingEntity> res = itemSettingRepo.findAll();
 		return ResponseEntity.ok(res);
 	}
 	
