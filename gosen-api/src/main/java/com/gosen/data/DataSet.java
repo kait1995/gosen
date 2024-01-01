@@ -26,5 +26,5 @@ public class DataSet {
 	}
 	
 	private List<String> dateList;
-	private List<MeasuredValue> measuredValue;
+	private List<MeasuredValue> measuredValues;
 }
