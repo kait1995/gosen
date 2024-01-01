@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gosen.config.AppConfig;
 import com.gosen.model.DeviceSettingEntity;
-import com.gosen.repository.DeviceSettingRepository;
+import com.gosen.repository.ItemSettingRepository;
 
 @RestController
-public class DataRestController {
+public class ItemRestController {
 	
 	private final AppConfig appConfig;	
-	private final DeviceSettingRepository deviceSettingRepo;
+	private final ItemSettingRepository itemSettingRepo;
 	
-	DataRestController(DeviceSettingRepository deviceSettingRepo, AppConfig appConfig){
-		this.deviceSettingRepo = deviceSettingRepo;
+	ItemRestController(ItemSettingRepository itemSettingRepo, AppConfig appConfig){
+		this.itemSettingRepo = itemSettingRepo;
 		this.appConfig = appConfig;
 	}
 	
 	@PostMapping(value="/v1/item", consumes="application/json;charset=UTF-8")
 	public ResponseEntity<Long> addItem(@RequestBody DeviceSettingEntity deviceSetting) {
-		DeviceSettingEntity res = deviceSettingRepo.save(deviceSetting);
+		DeviceSettingEntity res = itemSettingRepo.save(deviceSetting);
 		return ResponseEntity.ok(res.getSettingId());
 	}
 	
@@ -37,11 +37,11 @@ public class DataRestController {
 			@PathVariable("id") Long id,
 			@RequestBody DeviceSettingEntity deviceSetting
 	){
-		var res = deviceSettingRepo.findById(id);
+		var res = itemSettingRepo.findById(id);
 		if(res.isPresent()) {
 			res.get().setDeviceNumber(deviceSetting.getDeviceNumber());
 			res.get().setTitle(deviceSetting.getTitle());
-			deviceSettingRepo.save(res.get());
+			itemSettingRepo.save(res.get());
 			return ResponseEntity.ok("Response ok");
 		} else {
 			return ResponseEntity.badRequest().body("");
@@ -50,9 +50,9 @@ public class DataRestController {
 	
 	@DeleteMapping(value="/v1/item/{id}")
 	public ResponseEntity<String> removeItem(@PathVariable("id") Long id){
-		var deviceSetting = deviceSettingRepo.findById(id);
+		var deviceSetting = itemSettingRepo.findById(id);
 		if(deviceSetting.isPresent()) {
-			deviceSettingRepo.deleteById(id);
+			itemSettingRepo.deleteById(id);
 			return ResponseEntity.ok("Response ok.");
 		} else {
 			return ResponseEntity.badRequest().body("The title was not found.");
@@ -61,7 +61,7 @@ public class DataRestController {
 	
 	@GetMapping(value="/v1/item", produces="application/json;charset=UTF-8")
 	public ResponseEntity<List<DeviceSettingEntity>> getItems(){
-		List<DeviceSettingEntity> res = deviceSettingRepo.findAll();
+		List<DeviceSettingEntity> res = itemSettingRepo.findAll();
 		return ResponseEntity.ok(res);
 	}
 	
