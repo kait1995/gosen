@@ -2,6 +2,7 @@ package com.gosen.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class ItemRestController {
 	@PostMapping(value="/v1/item", consumes="application/json;charset=UTF-8")
 	public ResponseEntity<Long> addItem(@RequestBody ItemSettingEntity deviceSetting) {
 		ItemSettingEntity res = itemSettingRepo.save(deviceSetting);
-		return ResponseEntity.ok(res.getSettingId());
+		return ResponseEntity.ok().body(res.getSettingId());
 	}
 	
 	@PutMapping(value="/v1/item/{id}")
@@ -42,7 +43,7 @@ public class ItemRestController {
 			res.get().setDeviceNumber(deviceSetting.getDeviceNumber());
 			res.get().setTitle(deviceSetting.getTitle());
 			itemSettingRepo.save(res.get());
-			return ResponseEntity.ok("Response ok");
+			return ResponseEntity.ok().body("Response ok");
 		} else {
 			return ResponseEntity.badRequest().body("");
 		}
@@ -53,7 +54,7 @@ public class ItemRestController {
 		var deviceSetting = itemSettingRepo.findById(id);
 		if(deviceSetting.isPresent()) {
 			itemSettingRepo.deleteById(id);
-			return ResponseEntity.ok("Response ok.");
+			return ResponseEntity.ok().body("Response ok.");
 		} else {
 			return ResponseEntity.badRequest().body("The title was not found.");
 		}
@@ -62,7 +63,7 @@ public class ItemRestController {
 	@GetMapping(value="/v1/item", produces="application/json;charset=UTF-8")
 	public ResponseEntity<List<ItemSettingEntity>> getItems(){
 		List<ItemSettingEntity> res = itemSettingRepo.findAll();
-		return ResponseEntity.ok(res);
+		return ResponseEntity.ok().body(res);
 	}
 	
 }

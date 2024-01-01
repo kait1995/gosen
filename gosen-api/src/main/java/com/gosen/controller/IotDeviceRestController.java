@@ -30,7 +30,7 @@ public class IotDeviceRestController {
 	public ResponseEntity<DeviceNumberList> getDeviceNumberList(){
 		List<EnvironmentalDataEntity> res = environmentalDataRepository.findAll();
 		var deviceNumberList = res.stream().map(EnvironmentalDataEntity::getDeviceNumber).distinct().toList();
-		var responseEntity = ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(new DeviceNumberList(deviceNumberList));
+		var responseEntity = ResponseEntity.ok().body(new DeviceNumberList(deviceNumberList));
 		return responseEntity;
 	}
 	
@@ -54,12 +54,12 @@ public class IotDeviceRestController {
 					.option9(environmentalData.getOption9()).build();
         }).toList();
         var dataSet = DataSet.builder().dateList(dateList).measuredValues(measuredValues).build();
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(dataSet);
+        return ResponseEntity.ok().body(dataSet);
     }
 	
 	@GetMapping(value="/v1/device", produces="application/json;charset=UTF-8")
 	public ResponseEntity<List<EnvironmentalDataEntity>> getGraphData(){
 		List<EnvironmentalDataEntity> res = environmentalDataRepository.findAll();
-		return ResponseEntity.ok(res);
+		return ResponseEntity.ok().body(res);
 	}
 }
