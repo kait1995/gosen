@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gosen.config.AppConfig;
+import com.gosen.data.ItemSettings;
 import com.gosen.model.ItemSettingEntity;
 import com.gosen.repository.ItemSettingRepository;
 
@@ -61,9 +62,9 @@ public class ItemRestController {
 	}
 	
 	@GetMapping(value="/v1/item", produces="application/json;charset=UTF-8")
-	public ResponseEntity<List<ItemSettingEntity>> getItems(){
+	public ResponseEntity<ItemSettings> getItems(){
 		List<ItemSettingEntity> res = itemSettingRepo.findAll();
-		return ResponseEntity.ok().body(res);
+		return ResponseEntity.ok().body(ItemSettings.builder().itemSettings(res).build());
 	}
 	
 }

@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import com.gosen.config.AppConfig;
 import com.gosen.data.DataSet;
 import com.gosen.data.DeviceNumberList;
+import com.gosen.data.EnvironmentalData;
 import com.gosen.model.EnvironmentalDataEntity;
 import com.gosen.repository.EnvironmentalDataRepository;
 
@@ -34,9 +34,9 @@ public class IotDeviceRestController {
 		return responseEntity;
 	}
 	
-	@GetMapping(value="/v1/device/dataset", produces="application/json;charset=UTF-8")
-	public ResponseEntity<DataSet> getDeviceDataSet(){	
-        var res = environmentalDataRepository.findAll();
+	@GetMapping(value="/v1/device/dataset/{id}", produces="application/json;charset=UTF-8")
+	public ResponseEntity<DataSet> getDeviceDataSet(@PathVariable("id") int id){
+        var res = environmentalDataRepository.findAllByDeviceNumber(id);
         var dateList = res.stream().map(EnvironmentalDataEntity::getDate).toList();
         var measuredValues = res.stream().map((environmentalData) -> {
 			return DataSet.MeasuredValue.builder()
@@ -58,8 +58,8 @@ public class IotDeviceRestController {
     }
 	
 	@GetMapping(value="/v1/device", produces="application/json;charset=UTF-8")
-	public ResponseEntity<List<EnvironmentalDataEntity>> getGraphData(){
+	public ResponseEntity<EnvironmentalData> getGraphData(){
 		List<EnvironmentalDataEntity> res = environmentalDataRepository.findAll();
-		return ResponseEntity.ok().body(res);
+		return ResponseEntity.ok().body(EnvironmentalData.builder().environmentalData(res).build());
 	}
 }
