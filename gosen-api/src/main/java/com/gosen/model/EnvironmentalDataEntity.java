@@ -23,19 +23,19 @@ public class EnvironmentalDataEntity{
 	private Long dataId;
 	
 	private int deviceNumber;
-	private String batteryStatus;
-	private String signalStrength;
-	private String humidity;
-	private String temperature;
-	private String option0;
-	private String option1;
-	private String option2;
-	private String option3;
-	private String option4;
-	private String option5;
-	private String option6;
-	private String option7;
-	private String option8;
-	private String option9;
+	private double batteryStatus;
+	private double signalStrength;
+	private double humidity;
+	private double temperature;
+	private double option0;
+	private double option1;
+	private double option2;
+	private double option3;
+	private double option4;
+	private double option5;
+	private double option6;
+	private double option7;
+	private double option8;
+	private double option9;
 	private String date;
 }
