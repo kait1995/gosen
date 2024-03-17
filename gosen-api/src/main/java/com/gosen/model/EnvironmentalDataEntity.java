@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Getter
 @Setter
@@ -22,20 +24,11 @@ public class EnvironmentalDataEntity{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long dataId;
 	
-	private int deviceNumber;
-	private double batteryStatus;
-	private double signalStrength;
-	private double humidity;
-	private double temperature;
-	private double option0;
-	private double option1;
-	private double option2;
-	private double option3;
-	private double option4;
-	private double option5;
-	private double option6;
-	private double option7;
-	private double option8;
-	private double option9;
+	@ManyToOne
+	@JoinColumn(name="statusId")
+	private DeviceStatusEntity statusId;
+	
+	private String dataType;
+	private double dataValue;
 	private String date;
 }

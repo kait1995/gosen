@@ -1,13 +1,6 @@
-
-CREATE TABLE item_setting_entity(
+CREATE TABLE control_panel_entity(
 	setting_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(255),
-	device_number INT,
-	is_activated BOOLEAN,
 	use_camera BOOLEAN,
-	use_timer BOOLEAN,
-	timer_start VARCHAR(255),
-	timer_end VARCHAR(255),
 	manual_watering BOOLEAN,
 	status0 BOOLEAN,
 	status1 BOOLEAN,
@@ -23,22 +16,17 @@ CREATE TABLE item_setting_entity(
 CREATE TABLE user_account_entity(
 	account_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
 );
+CREATE TABLE device_status_entity(
+    status_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    device_number INT UNIQUE NOT NULL,
+    battery_status VARCHAR(255),
+    signal_strength VARCHAR(255)
+);
 CREATE TABLE environmental_data_entity(
 	data_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,	
-	device_number INT,
-	battery_status VARCHAR(255),
-	signal_strength VARCHAR(255),
-	humidity VARCHAR(255),
-	temperature VARCHAR(255),
-	option0 VARCHAR(255),
-	option1 VARCHAR(255),
-	option2 VARCHAR(255),
-	option3 VARCHAR(255),
-	option4 VARCHAR(255),
-	option5 VARCHAR(255),
-	option6 VARCHAR(255),
-	option7 VARCHAR(255),
-	option8 VARCHAR(255),
-	option9 VARCHAR(255),
-	date  VARCHAR(255)
+	status_id BIGINT,
+	data_type VARCHAR(255),
+	data_value VARCHAR(255),
+	date  VARCHAR(255),
+	foreign key (status_id) references device_status_entity(status_id)
 );

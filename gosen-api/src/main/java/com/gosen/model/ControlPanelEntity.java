@@ -1,13 +1,9 @@
 package com.gosen.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,18 +16,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ItemSettingEntity {
+public class ControlPanelEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long settingId;
 	
-	private String title;
-	private int deviceNumber;
-	private boolean isActivated;
 	private boolean useCamera;
-	private boolean useTimer;
-	private String timerStart;
-	private String timerEnd;
 	private boolean manualWatering;
 	private boolean status0;
 	private boolean status1;
